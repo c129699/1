@@ -21,7 +21,9 @@ def show_image_with_dice(predict_save, labs, save_path):
     iou_pred = jaccard_score(tmp_lbl.reshape(-1),tmp_3dunet.reshape(-1))
     # fig, ax = plt.subplots()
     # plt.gca().add_patch(patches.Rectangle(xy=(4, 4),width=120,height=20,color="white",linewidth=1))
-    if config.task_name is  = cv2.resize(predict_save,(2000,2000))
+    if config.task_name is "MoNuSeg":
+        predict_save = cv2.pyrUp(predict_save,(448,448))
+        predict_save = cv2.resize(predict_save,(2000,2000))
         # kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], np.float32) #定义一个核
         # predict_save = cv2.filter2D(predict_save, -1, kernel=kernel)
         cv2.imwrite(save_path,predict_save * 255)
