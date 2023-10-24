@@ -22,7 +22,11 @@ def logger_config(log_path):
     loggerr = logging.getLogger()
     loggerr.setLevel(level=logging.INFO)
     handler = logging.FileHandler(log_path, encoding='UTF-8')
-
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(message)s')
+    handler.setFormatter(formatter)
+    console = logging.StreamHandler()
+    console.setLevel(logging.INFO)
     loggerr.addHandler(handler)
     loggerr.addHandler(console)
     return loggerr
