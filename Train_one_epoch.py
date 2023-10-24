@@ -3,6 +3,7 @@
 # @Author  : Haonan Wang
 # @File    : Train_one_epoch.py
 # @Software: PyCharm
+# 2023/10/20 下午，上传
 import torch.optim
 import os
 import time
@@ -12,7 +13,29 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-
+def print_summary(epoch, i, nb_batch, loss, loss_name, batch_time,
+                  average_loss, average_time, iou, average_iou,
+                  dice, average_dice, acc, average_acc, mode, lr, logger):
+    '''
+        mode = Train or Test
+    '''
+    summary = '   [' + str(mode) + '] Epoch: [{0}][{1}/{2}]  '.format(
+        epoch, i, nb_batch)
+    string = ''
+    string += 'Loss:{:.3f} '.format(loss)
+    string += '(Avg {:.4f}) '.format(average_loss)
+    # string += 'IoU:{:.3f} '.format(iou)
+    # string += '(Avg {:.4f}) '.format(average_iou)
+    string += 'Dice:{:.4f} '.format(dice)
+    string += '(Avg {:.4f}) '.format(average_dice)
+    # string += 'Acc:{:.3f} '.format(acc)
+    # string += '(Avg {:.4f}) '.format(average_acc)
+    if mode == 'Train':
+        string += 'LR {:.2e}   '.format(lr)
+    # string += 'Time {:.1f} '.format(batch_time)
+    string += '(AvgTime {:.1f})   '.format(average_time)
+    summary += string
+    logger.info(summary)
     # print summary
 
 
