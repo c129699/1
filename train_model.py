@@ -3,6 +3,7 @@
 # @Author  : Haonan Wang
 # @File    : train.py
 # @Software: PyCharm
+# 9:00 码云
 import torch.optim
 from tensorboardX import SummaryWriter
 import os
@@ -31,7 +32,27 @@ def logger_config(log_path):
     loggerr.addHandler(console)
     return loggerr
 
+def save_checkpoint(state, save_path):
+    '''
+        Save the current model.
+        If the model is the best model since beginning of the training
+        it will be copy
+    '''
+    logger.info('\t Saving to {}'.format(save_path))
+    if not os.path.isdir(save_path):
+        os.makedirs(save_path)
 
+    epoch = state['epoch']  # epoch no
+    best_model = state['best_model']  # bool
+    model = state['model']  # model type
+
+    if best_model:
+        filename = save_path + '/' + \
+                   'best_model-{}.pth.tar'.format(model)
+    else:
+        filename = save_path + '/' + \
+                   'model-{}-{:02d}.pth.tar'.format(model, epoch)
+    torch.save(state, filename)
 
 def worker_init_fn(worker_id):
     random.seed(config.seed + worker_id)
