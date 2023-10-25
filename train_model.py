@@ -3,7 +3,7 @@
 # @Author  : Haonan Wang
 # @File    : train.py
 # @Software: PyCharm
-# 9:03 码云
+# 9:06 gitee
 import torch.optim
 from tensorboardX import SummaryWriter
 import os
